@@ -9,18 +9,27 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  TabBarIOS,
+  MapView,
+  TextInput
 } from 'react-native';
+import { Container, Content, Tabs } from 'native-base';
 
-class AmISafe extends Component {
-  constructor() {
-    super();
-    this.state ={
-    longitude: 'unknown',
-    latitude: 'unknown'
+
+var  AmISafe = React.createClass({
+  title: 'Auto-focus',
+
+  getInitialState: function() {
+    return {
+      selectedTab: 'redTab',
+      notifCount: 0,
+      presses: 0,
+      longitude: 'unknown',
+      latitude: 'unknown'
     };
-  }
-  componentDidMount() {
+  },
+  componentDidMount: function() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log(position)
@@ -30,34 +39,77 @@ class AmISafe extends Component {
         this.setState({longitude: initialPosition, latitude: latitudePostiton});
       })
     console.log(this.state)
-  }
+  },
   mine(){
     console.log('hello')
     console.log(this.state)
     // ajax.getPrecinct(4).then(data=>{ console.log(data) })
-  }
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text onPress={this.mine.bind(this)} style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-        <Text>{this.state.longitude}</Text>
-        <Text>{this.state.latitude}</Text>
+  },
 
+  _renderContent: function(color: string, pageText: string, num?: number) {
+    return (
+      <View>
+      <TextInput style={{margin: 10}}
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this.setState({text})}
+        value={this.state.text}
+      />
+      <MapView
+        style={{height: 200, margin: 40}}
+        showsUserLocation={true}
+        followUserLocation={true}      />
+      <View style={{flex: 1, height: 100, backgroundColor: 'green'}}>
+      <Text style={styles.welcome}> SAFE</Text>
+      </View>
       </View>
     );
-  }
-}
+  },
+  _renderContentTwo: function(){
+    return (
+      <View style={styles.tabContent}>
+      <Text style={styles.tabText} >
+        {this.state.longitude} {this.state.latitude}
+      </Text>
+      </View>
+    );
+  },
+  render: function(){
+    return (
+      <TabBarIOS
+        unselectedTintColor="blue"
+        tintColor="white"
+        barTintColor="yellow">
+        <TabBarIOS.Item
+          systemIcon="search"
+          badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
+          selected={this.state.selectedTab === 'redTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'redTab',
+              notifCount: this.state.notifCount + 1,
+            });
+          }}>
+          {this._renderContent('#783E33', 'Red Tab', this.state.notifCount)}
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          renderAsOriginal
+          systemIcon="contacts"
+          selected={this.state.selectedTab === 'greenTab'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'greenTab',
+              presses: this.state.presses + 1
+            });
+          }}>
+          {this._renderContentTwo()}
+        </TabBarIOS.Item>
+      </TabBarIOS>
+    );
+  },
 
-const styles = StyleSheet.create({
+});
+
+var styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -73,6 +125,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+
+  tabContent: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabText: {
+    color: 'black',
+    margin: 50,
   },
 });
 
