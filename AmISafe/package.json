@@ -1,13 +1,24 @@
 {
-  "name": "AmISafe",
+  "name": "amisafe",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.1",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
     "native-base": "^0.5.4",
+    "path": "^0.12.7",
     "react": "15.2.1",
-    "react-native": "0.31.0"
-  }
+    "react-native": "0.31.0",
+    "request": "^2.74.0"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
