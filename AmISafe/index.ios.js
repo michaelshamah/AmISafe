@@ -6,11 +6,12 @@
 
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, View, TabBarIOS, MapView, TextInput,ScrollView, TouchableOpacity, Image, ListView } from 'react-native';
+import UserPage          from './UserPage.js'
 import Search            from './Search.js'
 import styles            from './styles.js'
-import ajax              from './ajaxAdapter.js'
+import ajax              from './helpers/ajaxAdapter.js'
 
-class AmISafeTwo extends Component {
+class AmISafe extends Component {
   constructor(props) {
     super(props)
     this.state= {
@@ -67,6 +68,7 @@ class AmISafeTwo extends Component {
             });
             console.log(this.state)
           }}>
+          <UserPage />
         </TabBarIOS.Item>
         </TabBarIOS>
 
@@ -75,4 +77,4 @@ class AmISafeTwo extends Component {
 }
 
 
-AppRegistry.registerComponent('AmISafeTwo', () => AmISafeTwo);
+AppRegistry.registerComponent('AmISafe', () => AmISafe);

@@ -1,5 +1,5 @@
 import styles            from './styles.js'
-import ajax              from './ajaxAdapter.js'
+import ajax              from './helpers/ajaxAdapter.js'
 import React, { Component } from 'react';
 import {Container, Content, Card, CardItem} from 'native-base';
 import {
