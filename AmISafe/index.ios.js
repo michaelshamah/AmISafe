@@ -3,40 +3,25 @@
  * https://github.com/facebook/react-native
  * @flow
  */
- import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import React, { Component } from 'react';
+import { AppRegistry, StyleSheet, Text, View, TabBarIOS, MapView, TextInput,ScrollView, TouchableOpacity, Image, ListView } from 'react-native';
 import Search            from './Search.js'
 import styles            from './styles.js'
-import ajax              from './helpers/ajaxAdapter.js'
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  TabBarIOS,
-  MapView,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  ListView
-} from 'react-native';
-import {Container, Content, Card, CardItem} from 'native-base';
+import ajax              from './ajaxAdapter.js'
 
-
-var  AmISafe = React.createClass({
-  title: '<ScrollView>',
-  description: 'To make content scrollable, wrap it within a <ScrollView> component',
-
-  getInitialState: function() {
-    return {
+class AmISafeTwo extends Component {
+  constructor(props) {
+    super(props)
+    this.state= {
       selectedTab: 'tab1',
       longitude: 'unknown',
       latitude: 'unknown',
       data: ['noting found'],
+      text: '',
     };
-  },
-  componentDidMount: function() {
+  }
+  componentDidMount() {
     let here=this
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -45,7 +30,7 @@ var  AmISafe = React.createClass({
 
         this.setState({longitude: initialPosition, latitude: latitudePostiton});
 
-        ajax.getPrecinct(initialPosition, latitudePostiton).then(data=>{
+        ajax.getFelonies(initialPosition, latitudePostiton).then(data=>{
           lastfive=[]
           for (var i= data.length-1; (i> data.length-6 || i< 0); i--){
             lastfive.push(data[i])
@@ -54,49 +39,9 @@ var  AmISafe = React.createClass({
        })
       }
     )
-  },
-  mine(){
-    console.log(this.state)
-  },
+  }
 
-  _renderContent: function() {
-    return (
-    <Search />
-    )
-  },
-  _renderContentTwo: function(){
-  },
-  render: function(){
-    let list=[]
-    let felon
-    var here=this
-    var _scrollView: ScrollView;
-    if (this.state.data !== undefined){
-      felon=(
-        <Container>
-        <Content>
-          {here.state.data.map((felony, id)=>{
-            return (
-              <Card key={id} style={{margin: 5}}>
-                <CardItem header>
-                  <Text>
-                    {felony.offense}
-                  </Text>
-                </CardItem>
-                <CardItem>
-                  <Text>{felony.occurrence_month} {felony.occurrence_day}, {felony.occurrence_year}</Text>
-                </CardItem>
-              </Card>
-            )
-          })}
-        </Content>
-      </Container>)
-      console.log(this.state.data)
-    } else{
-      list=['no data found']
-      console.log(list)
-    }
-
+  render() {
     return (
       <TabBarIOS
         unselectedTintColor="blue"
@@ -111,23 +56,7 @@ var  AmISafe = React.createClass({
             });
             console.log(this.state)
           }}>
-          <View>
-            {this._renderContent()}
-            <View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => { _scrollView.scrollTo({y: 0}); }}>
-                <Text>SAVE LOCATION</Text>
-              </TouchableOpacity>
-              <ScrollView
-                ref={(scrollView) => { _scrollView = scrollView; }}
-                automaticallyAdjustContentInsets={false}
-                scrollEventThrottle={200}
-                style={styles.scrollView}>
-                {felon}
-              </ScrollView>
-            </View>
-          </View>
+          <Search data={this.state.data}/>
         </TabBarIOS.Item>
         <TabBarIOS.Item
           systemIcon="contacts"
@@ -138,10 +67,12 @@ var  AmISafe = React.createClass({
             });
             console.log(this.state)
           }}>
-          {this._renderContentTwo()}
         </TabBarIOS.Item>
-      </TabBarIOS>
+        </TabBarIOS>
+
     );
-  },
-});
-AppRegistry.registerComponent('AmISafe', () => AmISafe);
+  }
+}
+
+
+AppRegistry.registerComponent('AmISafeTwo', () => AmISafeTwo);
