@@ -310,11 +310,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C0388FF01D5D0A7100AC457C /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* AmISafe */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AmISafeTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				C0388FFD1D5D0FCB00AC457C /* FBSDKShareKit.framework */,
+				C0388FF91D5D0FB700AC457C /* FBSDKCoreKit.framework */,
+				C0388FFB1D5D0FC000AC457C /* FBSDKLoginKit.framework */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -327,16 +329,6 @@
 				00E356EE1AD99517003FC87E /* AmISafeTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C0388FF01D5D0A7100AC457C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C0388FFD1D5D0FCB00AC457C /* FBSDKShareKit.framework */,
-				C0388FF91D5D0FB700AC457C /* FBSDKCoreKit.framework */,
-				C0388FFB1D5D0FC000AC457C /* FBSDKLoginKit.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C0F3AE711D5CED9E008365B8 /* Products */ = {
