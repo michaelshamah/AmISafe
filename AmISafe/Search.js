@@ -67,8 +67,12 @@ var Search =React.createClass({
         onChangeText={(text) => this.setState({text})}
         value={this.state.text}
         blurOnSubmit={true}
-        onBlur={this.onSubmit()}
       />
+      <TouchableOpacity
+          style={styles.button}
+          onPress={this.onSubmit()}>
+          <Text>SEARCH</Text>
+      </TouchableOpacity>
       <MapView
         style={{height: 200, flex:1}}
         showsUserLocation={true}

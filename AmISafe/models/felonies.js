@@ -1,6 +1,6 @@
 var request = require('request');
-apikey= process.env.NYC_OPEN_DATA
-googlekey= process.env.Google_MAPS_API
+const apikey= process.env.NYC_OPEN_DATA
+const googleKey= process.env.GOOGLE_MAPS_API
 
 function felonies(req, res, next){
   console.log(req.query)
@@ -21,14 +21,17 @@ function felonies(req, res, next){
 }
 
 function address(req, res, next){
-  var adress= req.query.address
-  var url= `https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${googlekey}`
+  var address= req.query.address
+
+  var url= `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleKey}`
   request({
     url: url,
     method: 'get'
   }, (err, response, data)=>{
     if ( err ) throw err
+    console.log(data)
     res.data= JSON.parse(data)
+    res.data=(res.data.results[0].geometry.location)
     next()
   })
 }
