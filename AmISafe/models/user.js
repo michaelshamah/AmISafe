@@ -33,8 +33,8 @@ function getUser(req,res,next) {
   db.one(`
       SELECT *
       FROM users
-      WHERE email = lower(trim(from $/email/));
-      `, req.body)
+      WHERE email = $1;
+      `, [req.body.email])
       .then( user=>{
 
         if(bcrypt.compareSync(req.body.password, user.password_digest)){
@@ -56,12 +56,9 @@ function getUser(req,res,next) {
 
 //add a new user
 function addUser(req,res,next) {
-  console.log('hello')
   createSecure(req.body.password).then( hash=>{
         console.log('going into db')
-        db.any(`INSERT INTO users (
-      name, email, password_digest,
-      ) VALUES($1, $2, $3, ) returning *;`,
+        db.any(`INSERT INTO users (name, email, password_digest) VALUES($1, $2, $3) returning *;`,
       [req.body.name, req.body.email, hash])
     .then(data => {
       console.log('coming out of db')

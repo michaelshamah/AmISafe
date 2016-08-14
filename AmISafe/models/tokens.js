@@ -14,10 +14,10 @@ module.exports={
 
   createToken(req,res,next){
     console.log(res.user)
-    const {user_name, user_id}=res.user
-    console.log({user_name, user_id})
+    const {name, user_id}=res.user
+    console.log({name, user_id})
     // we should be certain that a user exists by now (res.user)
-    const token = jwt.sign({user_name, user_id}, 'superSecret', {
+    const token = jwt.sign({name, user_id}, 'superSecret', {
       expiresIn: 30 // expires in 24 hours
     });
 
@@ -26,7 +26,8 @@ module.exports={
       success: true,
       message: 'Enjoy your token!',
       token: token,
-      user: res.user.user_id
+      user: res.user.user_id,
+      name: res.user.name
     });
   },
 

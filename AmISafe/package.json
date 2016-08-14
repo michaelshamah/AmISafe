@@ -10,16 +10,13 @@
     "ejs": "^2.5.1",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
-    "native-base": "^0.5.4",
     "path": "^0.12.7",
-    "react": "15.2.1",
-    "react-native": "0.31.0",
-    "react-native-fbsdk": "^0.3.0",
-    "react-native-keyboard-aware-scroll-view": "^0.1.2",
     "request": "^2.74.0"
   },
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "^2.0.0"
+  },
   "author": "",
   "license": "ISC",
   "description": ""
