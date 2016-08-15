@@ -7,7 +7,7 @@ const db = require('./connections.js')
 //get all items that are using share bear
 function getAllLocations(req,res,next) {
   let user= req.query.user
-  db.any(`SELECT address FROM locations join users on locations.user_id=users.user_id where locations.user_id=${user}`)
+  db.any(`SELECT address, location_id FROM locations join users on locations.user_id=users.user_id where locations.user_id=${user}`)
     .then(data => {
       res.rows = data;
       next();
