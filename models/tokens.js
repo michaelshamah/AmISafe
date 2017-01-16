@@ -14,7 +14,7 @@ module.exports={
 
   createToken(req,res,next){
     console.log(res.user)
-    const {name, user_id}=res.user
+    const {name, user_id} = res.user
     console.log({name, user_id})
     // we should be certain that a user exists by now (res.user)
     const token = jwt.sign({name, user_id}, 'superSecret', {

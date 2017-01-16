@@ -30,6 +30,7 @@ function getAllUsers(req,res,next) {
 
 //get a specific users
 function getUser(req,res,next) {
+  console.log(db)
   db.one(`
       SELECT *
       FROM users

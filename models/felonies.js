@@ -4,6 +4,7 @@ const googleKey= process.env.GOOGLE_MAPS_API
 
 function felonies(req, res, next){
   console.log(req.query)
+  console.log('hello')
   var lat= req.query.lat
   var long= req.query.long
   var url= `https://data.cityofnewyork.us/resource/e4qk-cpnv.json?$where=within_circle(location_1, ${lat}, ${long}, 50)`
@@ -15,7 +16,9 @@ function felonies(req, res, next){
     }
   }, (err, response, data)=>{
     if ( err ) throw err
+      console.log('it aint working')
     res.data= JSON.parse(data)
+    console.log(data)
     next()
   })
 }
